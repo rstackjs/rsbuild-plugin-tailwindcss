@@ -404,7 +404,7 @@ class TailwindRspackPluginImpl {
       // See:
       //   - https://github.com/tailwindlabs/tailwindcss/releases/tag/v3.3.0
       //   - https://github.com/tailwindlabs/tailwindcss/pull/10785
-      //   - https://github.com/rspack-contrib/rsbuild-plugin-tailwindcss/issues/18
+      //   - https://github.com/rstackjs/rsbuild-plugin-tailwindcss/issues/18
       //
       // In this case, we provide an ESM configuration to support both ESM and CJS.
       return [
