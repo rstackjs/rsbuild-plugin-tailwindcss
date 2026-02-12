@@ -1,0 +1,13 @@
+diff --git a/dist/Compiler.d.ts b/dist/Compiler.d.ts
+index c8de6de22b46535df48e2b3388108b5ceac0d6f7..d083b1a349bbd81e072eafcbdc25e30beeade4ef 100644
+--- a/dist/Compiler.d.ts
++++ b/dist/Compiler.d.ts
+@@ -8,7 +8,7 @@
+  * https://github.com/webpack/webpack/blob/main/LICENSE
+  */
+ import type binding from '@rspack/binding';
+-import * as liteTapable from '../compiled/@rspack/lite-tapable/dist/index.d';
++import type * as liteTapable from '../compiled/@rspack/lite-tapable/dist/index.d.ts';
+ import type Watchpack from '../compiled/watchpack';
+ import type { Source } from '../compiled/webpack-sources';
+ import type { Chunk } from './Chunk.js';
