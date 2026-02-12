@@ -36,9 +36,6 @@ importers:
       '@types/semver':
         specifier: ^7.7.1
         version: 7.7.1
-      playwright:
-        specifier: ^1.54.1
-        version: 1.54.1
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -698,18 +695,8 @@ packages:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
 
-  playwright-core@1.54.1:
-    resolution: {integrity: sha512-Nbjs2zjj0htNhzgiy5wu+3w09YetDx5pkrpI/kZotDlDUaYk0HVA5xrBVPdow4SAUIlhgKcJeJg4GRKW6xHusA==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright-core@1.58.2:
     resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  playwright@1.54.1:
-    resolution: {integrity: sha512-peWpSwIBmSLi6aW2auvrUtf2DqY16YYcCMO8rTVx486jKmDTJg7UAhyrraP98GB8BoPURZP8+nxO7TSd4cPr5g==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1432,15 +1419,7 @@ snapshots:
 
   pirates@4.0.6: {}
 
-  playwright-core@1.54.1: {}
-
   playwright-core@1.58.2: {}
-
-  playwright@1.54.1:
-    dependencies:
-      playwright-core: 1.54.1
-    optionalDependencies:
-      fsevents: 2.3.2
 
   playwright@1.58.2:
     dependencies:
