@@ -83,7 +83,7 @@ export default {
 >
 > You don't need to add `tailwindcss` in the `postcss.config.js`. `rsbuild-plugin-tailwindcss` will add the plugin for you.
 
-Or use the [`tools.postcss`](https://rsbuild.dev/config/tools/postcss) option in `rsbuild.config.ts`.
+Or use the [`tools.postcss`](https://rsbuild.rs/config/tools/postcss) option in `rsbuild.config.ts`.
 
 ## Options
 
