@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+pnpmfileChecksum: sha256-/xhzNOuu2gnHZ9xSXg2Whi1pXgoDOLRXuVQKnoPEjMY=
+
 patchedDependencies:
   '@rspack/core@2.0.0-beta.2':
     hash: feee1682d8268102fea7df989d3fb8adb498396a2e281e6c195211854615a9f4
