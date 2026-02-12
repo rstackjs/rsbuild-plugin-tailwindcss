@@ -6,6 +6,11 @@ settings:
 
 pnpmfileChecksum: sha256-/xhzNOuu2gnHZ9xSXg2Whi1pXgoDOLRXuVQKnoPEjMY=
 
+patchedDependencies:
+  '@rspack/core@2.0.0-beta.2':
+    hash: feee1682d8268102fea7df989d3fb8adb498396a2e281e6c195211854615a9f4
+    path: patches/@rspack__core@2.0.0-beta.2.patch
+
 importers:
 
   .:
@@ -1122,7 +1127,7 @@ snapshots:
 
   '@rsbuild/core@2.0.0-beta.4(core-js@3.44.0)':
     dependencies:
-      '@rspack/core': 2.0.0-beta.2(@swc/helpers@0.5.18)
+      '@rspack/core': 2.0.0-beta.2(patch_hash=feee1682d8268102fea7df989d3fb8adb498396a2e281e6c195211854615a9f4)(@swc/helpers@0.5.18)
       '@swc/helpers': 0.5.18
     optionalDependencies:
       core-js: 3.44.0
@@ -1235,7 +1240,7 @@ snapshots:
     optionalDependencies:
       '@swc/helpers': 0.5.17
 
-  '@rspack/core@2.0.0-beta.2(@swc/helpers@0.5.18)':
+  '@rspack/core@2.0.0-beta.2(patch_hash=feee1682d8268102fea7df989d3fb8adb498396a2e281e6c195211854615a9f4)(@swc/helpers@0.5.18)':
     dependencies:
       '@rspack/binding': 2.0.0-beta.2
     optionalDependencies:
