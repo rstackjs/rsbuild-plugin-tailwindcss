@@ -8,6 +8,9 @@ engineStrict: true
 
 hoistWorkspacePackages: true
 
+patchedDependencies:
+  '@rspack/core@2.0.0-beta.2': patches/@rspack__core@2.0.0-beta.2.patch
+
 publicHoistPattern: []
 
 strictPeerDependencies: true
