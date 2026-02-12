@@ -22,7 +22,7 @@
     "lint": "biome check .",
     "lint:write": "biome check . --write",
     "prepare": "simple-git-hooks && npm run build",
-    "test": "playwright test"
+    "test": "playwright test --workers 1"
   },
   "simple-git-hooks": {
     "pre-commit": "npm run lint:write"
