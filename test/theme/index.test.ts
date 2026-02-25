@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test';
 import { createRsbuild } from '@rsbuild/core';
 
 import { pluginTailwindCSS } from '../../src';
-import { getRandomPort, supportESM } from '../helper';
+import { supportESM } from '../helper';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -23,9 +23,6 @@ test('theme', async ({ page }) => {
           config: './config/tailwind.config.js',
         }),
       ],
-      server: {
-        port: getRandomPort(),
-      },
     },
   });
 
@@ -34,19 +31,7 @@ test('theme', async ({ page }) => {
 
   try {
     await page.goto(urls[0]);
-    await page.waitForSelector('#test', { state: 'attached' });
-
-    const color = await page.evaluate(() => {
-      const el = document.getElementById('test');
-
-      if (!el) {
-        throw new Error('#test not found');
-      }
-
-      return window.getComputedStyle(el).getPropertyValue('color');
-    });
-
-    expect(color).toBe('rgb(1, 2, 3)');
+    await expect(page.locator('#test')).toHaveCSS('color', 'rgb(1, 2, 3)');
   } finally {
     await server.close();
   }

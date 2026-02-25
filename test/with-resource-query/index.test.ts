@@ -3,7 +3,6 @@ import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 import { createRsbuild } from '@rsbuild/core';
 import { pluginTailwindCSS } from '../../src';
-import { getRandomPort } from '../helper';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -17,9 +16,6 @@ test('should dev with resource query on rspack', async ({ page }) => {
         },
       },
       plugins: [pluginTailwindCSS()],
-      server: {
-        port: getRandomPort(),
-      },
     },
   });
 
@@ -51,9 +47,6 @@ test('should build with resource query on rspack', async ({ page }) => {
         entry: {
           index: resolve(__dirname, './src/index.js?entry'),
         },
-      },
-      server: {
-        port: getRandomPort(),
       },
       plugins: [pluginTailwindCSS()],
     },

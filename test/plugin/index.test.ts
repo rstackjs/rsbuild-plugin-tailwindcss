@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test';
 import { createRsbuild } from '@rsbuild/core';
 
 import { pluginTailwindCSS } from '../../src';
-import { getRandomPort, supportESM } from '../helper';
+import { supportESM } from '../helper';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -23,9 +23,6 @@ test('plugin', async ({ page }) => {
           config: './config/tailwind.config.js',
         }),
       ],
-      server: {
-        port: getRandomPort(),
-      },
     },
   });
 
@@ -34,24 +31,9 @@ test('plugin', async ({ page }) => {
 
   try {
     await page.goto(urls[0]);
-    await page.waitForSelector('#test', { state: 'attached' });
-
-    const style = await page.evaluate(() => {
-      const el = document.getElementById('test');
-
-      if (!el) {
-        throw new Error('#test not found');
-      }
-
-      const computed = window.getComputedStyle(el);
-      return {
-        position: computed.getPropertyValue('position'),
-        top: computed.getPropertyValue('top'),
-      };
-    });
-
-    expect(style.position).toBe('fixed');
-    expect(style.top).toBe('0px');
+    const locator = page.locator('#test');
+    await expect(locator).toHaveCSS('position', 'fixed');
+    await expect(locator).toHaveCSS('top', '0px');
   } finally {
     await server.close();
   }
