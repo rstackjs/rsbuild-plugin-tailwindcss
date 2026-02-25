@@ -31,16 +31,9 @@ test('plugin', async ({ page }) => {
 
   try {
     await page.goto(urls[0]);
-    const style = await page.locator('#test').evaluate((el) => {
-      const computed = window.getComputedStyle(el);
-      return {
-        position: computed.getPropertyValue('position'),
-        top: computed.getPropertyValue('top'),
-      };
-    });
-
-    expect(style.position).toBe('fixed');
-    expect(style.top).toBe('0px');
+    const locator = page.locator('#test');
+    await expect(locator).toHaveCSS('position', 'fixed');
+    await expect(locator).toHaveCSS('top', '0px');
   } finally {
     await server.close();
   }

@@ -24,9 +24,15 @@ test('should resolve tailwindcss', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('margin'));
+  const display = await page.evaluate(() => {
+    const el = document.getElementById('test');
+
+    if (!el) {
+      throw new Error('#test not found');
+    }
+
+    return window.getComputedStyle(el).getPropertyValue('margin');
+  });
 
   expect(display).toBe('0px');
 

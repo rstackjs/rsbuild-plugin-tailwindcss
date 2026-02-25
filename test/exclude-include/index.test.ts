@@ -24,50 +24,24 @@ test('should build with included and excluded modules', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
-
-  expect(display).toBe('flex');
+  await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
   // Exclude
-  {
-    const textAlign = await page
-      .locator('#exclude')
-      .evaluate((el) =>
-        window.getComputedStyle(el).getPropertyValue('text-align'),
-      );
+  await expect(page.locator('#exclude')).not.toHaveCSS(
+    'text-align',
+    'center',
+  );
 
-    expect(textAlign).not.toBe('center');
-
-    // The `not-exclude.js` imported by `exclude.js` should not be excluded.
-    const paddingTop = await page
-      .locator('#not-exclude')
-      .evaluate((el) =>
-        window.getComputedStyle(el).getPropertyValue('padding-top'),
-      );
-
-    expect(paddingTop).toBe('16px');
-  }
+  // The `not-exclude.js` imported by `exclude.js` should not be excluded.
+  await expect(page.locator('#not-exclude')).toHaveCSS('padding-top', '16px');
 
   // Include
-  {
-    const textAlign = await page
-      .locator('#not-include')
-      .evaluate((el) =>
-        window.getComputedStyle(el).getPropertyValue('text-align'),
-      );
+  await expect(page.locator('#not-include')).not.toHaveCSS(
+    'text-align',
+    'center',
+  );
 
-    expect(textAlign).not.toBe('center');
-
-    // The `include.js` imported by `not-include.ts` should be included.
-    const paddingTop = await page
-      .locator('#include')
-      .evaluate((el) =>
-        window.getComputedStyle(el).getPropertyValue('padding-top'),
-      );
-
-    expect(paddingTop).toBe('16px');
-  }
+  // The `include.js` imported by `not-include.ts` should be included.
+  await expect(page.locator('#include')).toHaveCSS('padding-top', '16px');
   await server.close();
 });

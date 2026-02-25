@@ -29,11 +29,7 @@ test('should build with relative config', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
-
-  expect(display).toBe('flex');
+  await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
   await server.close();
 });
@@ -60,11 +56,7 @@ test('should build with absolute config', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
-
-  expect(display).toBe('flex');
+  await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
   await server.close();
 });
@@ -82,11 +74,7 @@ test('should build without tailwind.config.js', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
-
-  expect(display).toBe('flex');
+  await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
   await server.close();
 });

@@ -31,13 +31,7 @@ test('prefix', async ({ page }) => {
 
   try {
     await page.goto(urls[0]);
-    const display = await page
-      .locator('#test')
-      .evaluate((el) =>
-        window.getComputedStyle(el).getPropertyValue('display'),
-      );
-
-    expect(display).toBe('flex');
+    await expect(page.locator('#test')).toHaveCSS('display', 'flex');
   } finally {
     await server.close();
   }

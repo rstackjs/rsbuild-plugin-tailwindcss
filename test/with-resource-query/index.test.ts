@@ -22,9 +22,17 @@ test('should dev with resource query on rspack', async ({ page }) => {
   const { server, urls } = await rsbuild.startDevServer();
 
   await page.goto(urls[0]);
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
+  await page.waitForSelector('#test', { state: 'attached' });
+
+  const display = await page.evaluate(() => {
+    const el = document.getElementById('test');
+
+    if (!el) {
+      throw new Error('#test not found');
+    }
+
+    return window.getComputedStyle(el).getPropertyValue('display');
+  });
 
   expect(display).toBe('flex');
 
@@ -48,9 +56,17 @@ test('should build with resource query on rspack', async ({ page }) => {
   const { server, urls } = await rsbuild.preview();
 
   await page.goto(urls[0]);
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
+  await page.waitForSelector('#test', { state: 'attached' });
+
+  const display = await page.evaluate(() => {
+    const el = document.getElementById('test');
+
+    if (!el) {
+      throw new Error('#test not found');
+    }
+
+    return window.getComputedStyle(el).getPropertyValue('display');
+  });
 
   expect(display).toBe('flex');
 

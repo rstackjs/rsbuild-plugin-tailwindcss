@@ -23,28 +23,15 @@ test('should build with excluded modules', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
+  await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
-  expect(display).toBe('flex');
-
-  const textAlign = await page
-    .locator('#exclude')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('text-align'),
-    );
-
-  expect(textAlign).not.toBe('center');
+  await expect(page.locator('#exclude')).not.toHaveCSS(
+    'text-align',
+    'center',
+  );
 
   // The `not-exclude.js` imported by `exclude.js` should not be excluded.
-  const paddingTop = await page
-    .locator('#not-exclude')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('padding-top'),
-    );
-
-  expect(paddingTop).toBe('16px');
+  await expect(page.locator('#not-exclude')).toHaveCSS('padding-top', '16px');
 
   await server.close();
 });

@@ -31,11 +31,7 @@ test('theme', async ({ page }) => {
 
   try {
     await page.goto(urls[0]);
-    const color = await page
-      .locator('#test')
-      .evaluate((el) => window.getComputedStyle(el).getPropertyValue('color'));
-
-    expect(color).toBe('rgb(1, 2, 3)');
+    await expect(page.locator('#test')).toHaveCSS('color', 'rgb(1, 2, 3)');
   } finally {
     await server.close();
   }

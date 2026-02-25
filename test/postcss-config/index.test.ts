@@ -19,11 +19,7 @@ test('should build with postcss.config.js', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
-
-  expect(display).toBe('grid');
+  await expect(page.locator('#test')).toHaveCSS('display', 'grid');
 
   await server.close();
 });

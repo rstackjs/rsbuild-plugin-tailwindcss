@@ -19,11 +19,7 @@ test('should dev with tailwind utilities', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
-
-  expect(display).toBe('flex');
+  await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
   await server.close();
 });
@@ -41,11 +37,7 @@ test('should build with tailwind utilities', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
-
-  expect(display).toBe('flex');
+  await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
   await server.close();
 });
@@ -80,11 +72,7 @@ test('should dev with nested entry', async ({ page }) => {
 
   await page.goto(`${urls[0]}/nested/output/folder/bundle`);
 
-  const display = await page
-    .locator('#test')
-    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
-
-  expect(display).toBe('flex');
+  await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
   await server.close();
 });

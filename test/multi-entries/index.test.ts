@@ -33,55 +33,47 @@ test('should dev with tailwind utilities in multiple entries', async ({
   const { server, urls } = await rsbuild.startDevServer();
 
   await page.goto(`${urls[0]}/a`);
-  let style = await getStyle();
-  expect(style.display).toBe('flex'); // flex
-  expect(style.width).not.toBe('32px'); // w-8
-  expect(style.paddingLeft).not.toBe('0'); // px-4
-  expect(style.paddingRight).not.toBe('0'); // px-4
-  expect(style.zIndex).not.toBe('20'); // z-20
-  expect(style.justifyContent).not.toBe('flex-end'); // justify-end
+  const locator = page.locator('#test');
+  await expect(locator).toHaveCSS('display', 'flex'); // flex
+  await expect(locator).not.toHaveCSS('width', '32px'); // w-8
+  await expect(locator).not.toHaveCSS('padding-left', '0'); // px-4
+  await expect(locator).not.toHaveCSS('padding-right', '0'); // px-4
+  await expect(locator).not.toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).not.toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await page.goto(`${urls[0]}/b`);
-  style = await getStyle();
-  expect(style.display).not.toBe('flex'); // flex
-  expect(style.width).toBe('32px'); // w-8
-  expect(style.paddingLeft).not.toBe('0'); // px-4
-  expect(style.paddingRight).not.toBe('0'); // px-4
-  expect(style.zIndex).not.toBe('20'); // z-20
-  expect(style.justifyContent).not.toBe('flex-end'); // justify-end
+  await expect(locator).not.toHaveCSS('display', 'flex'); // flex
+  await expect(locator).toHaveCSS('width', '32px'); // w-8
+  await expect(locator).not.toHaveCSS('padding-left', '0'); // px-4
+  await expect(locator).not.toHaveCSS('padding-right', '0'); // px-4
+  await expect(locator).not.toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).not.toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await page.goto(`${urls[0]}/c`);
-  style = await getStyle();
-  expect(style.display).not.toBe('flex'); // flex
-  expect(style.width).not.toBe('32px'); // w-8
-  expect(style.paddingLeft).toBe('16px'); // px-4
-  expect(style.paddingRight).toBe('16px'); // px-4
-  expect(style.zIndex).not.toBe('20'); // z-20
-  expect(style.justifyContent).not.toBe('flex-end'); // justify-end
+  await expect(locator).not.toHaveCSS('display', 'flex'); // flex
+  await expect(locator).not.toHaveCSS('width', '32px'); // w-8
+  await expect(locator).toHaveCSS('padding-left', '16px'); // px-4
+  await expect(locator).toHaveCSS('padding-right', '16px'); // px-4
+  await expect(locator).not.toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).not.toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await page.goto(`${urls[0]}/d`);
-  style = await getStyle();
-  expect(style.display).not.toBe('flex'); // flex
-  expect(style.width).not.toBe('32px'); // w-8
-  expect(style.paddingLeft).not.toBe('0'); // px-4
-  expect(style.paddingRight).not.toBe('0'); // px-4
-  expect(style.zIndex).toBe('20'); // z-20
-  expect(style.justifyContent).not.toBe('flex-end'); // justify-end
+  await expect(locator).not.toHaveCSS('display', 'flex'); // flex
+  await expect(locator).not.toHaveCSS('width', '32px'); // w-8
+  await expect(locator).not.toHaveCSS('padding-left', '0'); // px-4
+  await expect(locator).not.toHaveCSS('padding-right', '0'); // px-4
+  await expect(locator).toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).not.toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await page.goto(`${urls[0]}/e`);
-  style = await getStyle();
-  expect(style.display).not.toBe('flex'); // flex
-  expect(style.width).not.toBe('32px'); // w-8
-  expect(style.paddingLeft).not.toBe('0'); // px-4
-  expect(style.paddingRight).not.toBe('0'); // px-4
-  expect(style.zIndex).not.toBe('20'); // z-20
-  expect(style.justifyContent).toBe('flex-end'); // justify-end
+  await expect(locator).not.toHaveCSS('display', 'flex'); // flex
+  await expect(locator).not.toHaveCSS('width', '32px'); // w-8
+  await expect(locator).not.toHaveCSS('padding-left', '0'); // px-4
+  await expect(locator).not.toHaveCSS('padding-right', '0'); // px-4
+  await expect(locator).not.toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await server.close();
-
-  async function getStyle() {
-    return page.locator('#test').evaluate((el) => window.getComputedStyle(el));
-  }
 });
 
 test('should build with tailwind utilities in multiple entries', async ({
@@ -107,53 +99,45 @@ test('should build with tailwind utilities in multiple entries', async ({
   const { server, urls } = await rsbuild.preview();
 
   await page.goto(`${urls[0]}/a`);
-  let style = await getStyle();
-  expect(style.display).toBe('flex'); // flex
-  expect(style.width).not.toBe('32px'); // w-8
-  expect(style.paddingLeft).not.toBe('0'); // px-4
-  expect(style.paddingRight).not.toBe('0'); // px-4
-  expect(style.zIndex).not.toBe('20'); // z-20
-  expect(style.justifyContent).not.toBe('flex-end'); // justify-end
+  const locator = page.locator('#test');
+  await expect(locator).toHaveCSS('display', 'flex'); // flex
+  await expect(locator).not.toHaveCSS('width', '32px'); // w-8
+  await expect(locator).not.toHaveCSS('padding-left', '0'); // px-4
+  await expect(locator).not.toHaveCSS('padding-right', '0'); // px-4
+  await expect(locator).not.toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).not.toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await page.goto(`${urls[0]}/b`);
-  style = await getStyle();
-  expect(style.display).not.toBe('flex'); // flex
-  expect(style.width).toBe('32px'); // w-8
-  expect(style.paddingLeft).not.toBe('0'); // px-4
-  expect(style.paddingRight).not.toBe('0'); // px-4
-  expect(style.zIndex).not.toBe('20'); // z-20
-  expect(style.justifyContent).not.toBe('flex-end'); // justify-end
+  await expect(locator).not.toHaveCSS('display', 'flex'); // flex
+  await expect(locator).toHaveCSS('width', '32px'); // w-8
+  await expect(locator).not.toHaveCSS('padding-left', '0'); // px-4
+  await expect(locator).not.toHaveCSS('padding-right', '0'); // px-4
+  await expect(locator).not.toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).not.toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await page.goto(`${urls[0]}/c`);
-  style = await getStyle();
-  expect(style.display).not.toBe('flex'); // flex
-  expect(style.width).not.toBe('32px'); // w-8
-  expect(style.paddingLeft).toBe('16px'); // px-4
-  expect(style.paddingRight).toBe('16px'); // px-4
-  expect(style.zIndex).not.toBe('20'); // z-20
-  expect(style.justifyContent).not.toBe('flex-end'); // justify-end
+  await expect(locator).not.toHaveCSS('display', 'flex'); // flex
+  await expect(locator).not.toHaveCSS('width', '32px'); // w-8
+  await expect(locator).toHaveCSS('padding-left', '16px'); // px-4
+  await expect(locator).toHaveCSS('padding-right', '16px'); // px-4
+  await expect(locator).not.toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).not.toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await page.goto(`${urls[0]}/d`);
-  style = await getStyle();
-  expect(style.display).not.toBe('flex'); // flex
-  expect(style.width).not.toBe('32px'); // w-8
-  expect(style.paddingLeft).not.toBe('0'); // px-4
-  expect(style.paddingRight).not.toBe('0'); // px-4
-  expect(style.zIndex).toBe('20'); // z-20
-  expect(style.justifyContent).not.toBe('flex-end'); // justify-end
+  await expect(locator).not.toHaveCSS('display', 'flex'); // flex
+  await expect(locator).not.toHaveCSS('width', '32px'); // w-8
+  await expect(locator).not.toHaveCSS('padding-left', '0'); // px-4
+  await expect(locator).not.toHaveCSS('padding-right', '0'); // px-4
+  await expect(locator).toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).not.toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await page.goto(`${urls[0]}/e`);
-  style = await getStyle();
-  expect(style.display).not.toBe('flex'); // flex
-  expect(style.width).not.toBe('32px'); // w-8
-  expect(style.paddingLeft).not.toBe('0'); // px-4
-  expect(style.paddingRight).not.toBe('0'); // px-4
-  expect(style.zIndex).not.toBe('20'); // z-20
-  expect(style.justifyContent).toBe('flex-end'); // justify-end
+  await expect(locator).not.toHaveCSS('display', 'flex'); // flex
+  await expect(locator).not.toHaveCSS('width', '32px'); // w-8
+  await expect(locator).not.toHaveCSS('padding-left', '0'); // px-4
+  await expect(locator).not.toHaveCSS('padding-right', '0'); // px-4
+  await expect(locator).not.toHaveCSS('z-index', '20'); // z-20
+  await expect(locator).toHaveCSS('justify-content', 'flex-end'); // justify-end
 
   await server.close();
-
-  async function getStyle() {
-    return page.locator('#test').evaluate((el) => window.getComputedStyle(el));
-  }
 });
