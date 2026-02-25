@@ -25,10 +25,7 @@ test('should build with excluded modules', async ({ page }) => {
 
   await expect(page.locator('#test')).toHaveCSS('display', 'flex');
 
-  await expect(page.locator('#exclude')).not.toHaveCSS(
-    'text-align',
-    'center',
-  );
+  await expect(page.locator('#exclude')).not.toHaveCSS('text-align', 'center');
 
   // The `not-exclude.js` imported by `exclude.js` should not be excluded.
   await expect(page.locator('#not-exclude')).toHaveCSS('padding-top', '16px');
