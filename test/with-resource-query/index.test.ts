@@ -26,6 +26,7 @@ test('should dev with resource query on rspack', async ({ page }) => {
   const { server, urls } = await rsbuild.startDevServer();
 
   await page.goto(urls[0]);
+  await page.waitForSelector('#test', { state: 'attached' });
 
   const display = await page.evaluate(() => {
     const el = document.getElementById('test');
@@ -62,6 +63,7 @@ test('should build with resource query on rspack', async ({ page }) => {
   const { server, urls } = await rsbuild.preview();
 
   await page.goto(urls[0]);
+  await page.waitForSelector('#test', { state: 'attached' });
 
   const display = await page.evaluate(() => {
     const el = document.getElementById('test');
