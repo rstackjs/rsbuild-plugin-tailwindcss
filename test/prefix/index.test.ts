@@ -18,13 +18,13 @@ test('prefix', async ({ page }) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
-       plugins: [
-         pluginTailwindCSS({
-           config: './config/tailwind.config.js',
-         }),
-       ],
-     },
-   });
+      plugins: [
+        pluginTailwindCSS({
+          config: './config/tailwind.config.js',
+        }),
+      ],
+    },
+  });
 
   await rsbuild.build();
   const { server, urls } = await rsbuild.preview();

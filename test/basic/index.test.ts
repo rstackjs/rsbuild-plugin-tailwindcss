@@ -21,9 +21,7 @@ test('should dev with tailwind utilities', async ({ page }) => {
 
   const display = await page
     .locator('#test')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('display'),
-    );
+    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
 
   expect(display).toBe('flex');
 
@@ -45,9 +43,7 @@ test('should build with tailwind utilities', async ({ page }) => {
 
   const display = await page
     .locator('#test')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('display'),
-    );
+    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
 
   expect(display).toBe('flex');
 
@@ -86,9 +82,7 @@ test('should dev with nested entry', async ({ page }) => {
 
   const display = await page
     .locator('#test')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('display'),
-    );
+    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
 
   expect(display).toBe('flex');
 

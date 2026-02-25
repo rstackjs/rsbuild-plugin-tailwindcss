@@ -18,13 +18,13 @@ test('theme', async ({ page }) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
-       plugins: [
-         pluginTailwindCSS({
-           config: './config/tailwind.config.js',
-         }),
-       ],
-     },
-   });
+      plugins: [
+        pluginTailwindCSS({
+          config: './config/tailwind.config.js',
+        }),
+      ],
+    },
+  });
 
   await rsbuild.build();
   const { server, urls } = await rsbuild.preview();
@@ -33,9 +33,7 @@ test('theme', async ({ page }) => {
     await page.goto(urls[0]);
     const color = await page
       .locator('#test')
-      .evaluate((el) =>
-        window.getComputedStyle(el).getPropertyValue('color'),
-      );
+      .evaluate((el) => window.getComputedStyle(el).getPropertyValue('color'));
 
     expect(color).toBe('rgb(1, 2, 3)');
   } finally {

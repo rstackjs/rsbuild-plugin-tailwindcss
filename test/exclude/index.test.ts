@@ -25,9 +25,7 @@ test('should build with excluded modules', async ({ page }) => {
 
   const display = await page
     .locator('#test')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('display'),
-    );
+    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
 
   expect(display).toBe('flex');
 

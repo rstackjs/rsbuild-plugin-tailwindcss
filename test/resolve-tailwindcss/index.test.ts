@@ -26,9 +26,7 @@ test('should resolve tailwindcss', async ({ page }) => {
 
   const display = await page
     .locator('#test')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('margin'),
-    );
+    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('margin'));
 
   expect(display).toBe('0px');
 

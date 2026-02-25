@@ -10,13 +10,13 @@ test('should build with relative config', async ({ page }) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
-       plugins: [
-         pluginTailwindCSS({
-           config: './config/tailwind.config.js',
-         }),
-       ],
-     },
-   });
+      plugins: [
+        pluginTailwindCSS({
+          config: './config/tailwind.config.js',
+        }),
+      ],
+    },
+  });
 
   await rsbuild.build();
   const { server, urls } = await rsbuild.preview();
@@ -25,9 +25,7 @@ test('should build with relative config', async ({ page }) => {
 
   const display = await page
     .locator('#test')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('display'),
-    );
+    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
 
   expect(display).toBe('flex');
 
@@ -38,13 +36,13 @@ test('should build with absolute config', async ({ page }) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
-       plugins: [
-         pluginTailwindCSS({
-           config: resolve(__dirname, './config/tailwind.config.js'),
-         }),
-       ],
-     },
-   });
+      plugins: [
+        pluginTailwindCSS({
+          config: resolve(__dirname, './config/tailwind.config.js'),
+        }),
+      ],
+    },
+  });
 
   await rsbuild.build();
   const { server, urls } = await rsbuild.preview();
@@ -53,9 +51,7 @@ test('should build with absolute config', async ({ page }) => {
 
   const display = await page
     .locator('#test')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('display'),
-    );
+    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
 
   expect(display).toBe('flex');
 
@@ -66,8 +62,7 @@ test('should build without tailwind.config.js', async ({ page }) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
-      server: {
-      },
+      server: {},
       plugins: [pluginTailwindCSS()],
     },
   });
@@ -79,9 +74,7 @@ test('should build without tailwind.config.js', async ({ page }) => {
 
   const display = await page
     .locator('#test')
-    .evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue('display'),
-    );
+    .evaluate((el) => window.getComputedStyle(el).getPropertyValue('display'));
 
   expect(display).toBe('flex');
 
