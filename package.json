@@ -1,0 +1,65 @@
+{
+  "name": "rsbuild-plugin-tailwindcss",
+  "version": "4.0.0-alpha.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rstackjs/rsbuild-plugin-tailwindcss.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "rslib build",
+    "bump": "npx bumpp",
+    "dev": "rslib build --watch",
+    "lint": "biome check .",
+    "lint:write": "biome check . --write",
+    "prepare": "simple-git-hooks",
+    "test": "playwright test --workers 1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npm run lint:write"
+  },
+  "dependencies": {
+    "@alloc/quick-lru": "^5.2.0",
+    "@tailwindcss/node": "^4.2.1",
+    "@tailwindcss/oxide": "^4.2.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@playwright/test": "^1.58.2",
+    "@rsbuild/core": "2.0.0-beta.4",
+    "@rsdoctor/rspack-plugin": "^1.5.2",
+    "@rslib/core": "^0.19.5",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/node": "^22.19.11",
+    "simple-git-hooks": "^2.13.1",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "@rsbuild/core": "^1.1.0 || ^2.0.0-0",
+    "tailwindcss": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@rsbuild/core": {
+      "optional": true
+    }
+  },
+  "packageManager": "pnpm@10.29.3",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  }
+}

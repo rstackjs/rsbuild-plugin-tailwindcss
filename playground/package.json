@@ -1,0 +1,14 @@
+{
+  "name": "playground",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "devDependencies": {
+    "@rsdoctor/rspack-plugin": "^1.5.2",
+    "rsbuild-plugin-tailwindcss": "workspace:*"
+  },
+  "scripts": {
+    "dev": "npx rsbuild dev",
+    "build": "npx rsbuild build"
+  }
+}
