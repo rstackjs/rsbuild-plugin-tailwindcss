@@ -3,7 +3,6 @@ import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 import { createRsbuild } from '@rsbuild/core';
 import { pluginTailwindCSS } from '../../src';
-import { getRandomPort } from '../helper';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -17,26 +16,17 @@ test('should dev with resource query on rspack', async ({ page }) => {
         },
       },
       plugins: [pluginTailwindCSS()],
-      server: {
-        port: getRandomPort(),
-      },
     },
   });
 
   const { server, urls } = await rsbuild.startDevServer();
 
   await page.goto(urls[0]);
-  await page.waitForSelector('#test', { state: 'attached' });
-
-  const display = await page.evaluate(() => {
-    const el = document.getElementById('test');
-
-    if (!el) {
-      throw new Error('#test not found');
-    }
-
-    return window.getComputedStyle(el).getPropertyValue('display');
-  });
+  const display = await page
+    .locator('#test')
+    .evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue('display'),
+    );
 
   expect(display).toBe('flex');
 
@@ -52,9 +42,6 @@ test('should build with resource query on rspack', async ({ page }) => {
           index: resolve(__dirname, './src/index.js?entry'),
         },
       },
-      server: {
-        port: getRandomPort(),
-      },
       plugins: [pluginTailwindCSS()],
     },
   });
@@ -63,17 +50,11 @@ test('should build with resource query on rspack', async ({ page }) => {
   const { server, urls } = await rsbuild.preview();
 
   await page.goto(urls[0]);
-  await page.waitForSelector('#test', { state: 'attached' });
-
-  const display = await page.evaluate(() => {
-    const el = document.getElementById('test');
-
-    if (!el) {
-      throw new Error('#test not found');
-    }
-
-    return window.getComputedStyle(el).getPropertyValue('display');
-  });
+  const display = await page
+    .locator('#test')
+    .evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue('display'),
+    );
 
   expect(display).toBe('flex');
 

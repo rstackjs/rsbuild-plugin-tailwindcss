@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 import { createRsbuild } from '@rsbuild/core';
 import { pluginTailwindCSS } from '../../src';
-import { getRandomPort, supportESM } from '../helper';
+import { supportESM } from '../helper';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -16,31 +16,24 @@ test('should build with relative config', async ({ page }) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
-      plugins: [
-        pluginTailwindCSS({
-          config: './config/tailwind.config.js',
-        }),
-      ],
-      server: {
-        port: getRandomPort(),
-      },
-    },
-  });
+       plugins: [
+         pluginTailwindCSS({
+           config: './config/tailwind.config.js',
+         }),
+       ],
+     },
+   });
 
   await rsbuild.build();
   const { server, urls } = await rsbuild.preview();
 
   await page.goto(urls[0]);
 
-  const display = await page.evaluate(() => {
-    const el = document.getElementById('test');
-
-    if (!el) {
-      throw new Error('#test not found');
-    }
-
-    return window.getComputedStyle(el).getPropertyValue('display');
-  });
+  const display = await page
+    .locator('#test')
+    .evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue('display'),
+    );
 
   expect(display).toBe('flex');
 
@@ -56,31 +49,24 @@ test('should build with absolute config', async ({ page }) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
-      plugins: [
-        pluginTailwindCSS({
-          config: resolve(__dirname, './config/tailwind.config.js'),
-        }),
-      ],
-      server: {
-        port: getRandomPort(),
-      },
-    },
-  });
+       plugins: [
+         pluginTailwindCSS({
+           config: resolve(__dirname, './config/tailwind.config.js'),
+         }),
+       ],
+     },
+   });
 
   await rsbuild.build();
   const { server, urls } = await rsbuild.preview();
 
   await page.goto(urls[0]);
 
-  const display = await page.evaluate(() => {
-    const el = document.getElementById('test');
-
-    if (!el) {
-      throw new Error('#test not found');
-    }
-
-    return window.getComputedStyle(el).getPropertyValue('display');
-  });
+  const display = await page
+    .locator('#test')
+    .evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue('display'),
+    );
 
   expect(display).toBe('flex');
 
@@ -92,9 +78,6 @@ test('should build without tailwind.config.js', async ({ page }) => {
     cwd: __dirname,
     rsbuildConfig: {
       plugins: [pluginTailwindCSS()],
-      server: {
-        port: getRandomPort(),
-      },
     },
   });
 
@@ -103,15 +86,11 @@ test('should build without tailwind.config.js', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const display = await page.evaluate(() => {
-    const el = document.getElementById('test');
-
-    if (!el) {
-      throw new Error('#test not found');
-    }
-
-    return window.getComputedStyle(el).getPropertyValue('display');
-  });
+  const display = await page
+    .locator('#test')
+    .evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue('display'),
+    );
 
   expect(display).toBe('flex');
 

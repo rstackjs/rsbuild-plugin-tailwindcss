@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test';
 import { createRsbuild } from '@rsbuild/core';
 
 import { pluginTailwindCSS } from '../../src';
-import { getRandomPort, supportESM } from '../helper';
+import { supportESM } from '../helper';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -18,33 +18,24 @@ test('theme', async ({ page }) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
-      plugins: [
-        pluginTailwindCSS({
-          config: './config/tailwind.config.js',
-        }),
-      ],
-      server: {
-        port: getRandomPort(),
-      },
-    },
-  });
+       plugins: [
+         pluginTailwindCSS({
+           config: './config/tailwind.config.js',
+         }),
+       ],
+     },
+   });
 
   await rsbuild.build();
   const { server, urls } = await rsbuild.preview();
 
   try {
     await page.goto(urls[0]);
-    await page.waitForSelector('#test', { state: 'attached' });
-
-    const color = await page.evaluate(() => {
-      const el = document.getElementById('test');
-
-      if (!el) {
-        throw new Error('#test not found');
-      }
-
-      return window.getComputedStyle(el).getPropertyValue('color');
-    });
+    const color = await page
+      .locator('#test')
+      .evaluate((el) =>
+        window.getComputedStyle(el).getPropertyValue('color'),
+      );
 
     expect(color).toBe('rgb(1, 2, 3)');
   } finally {
