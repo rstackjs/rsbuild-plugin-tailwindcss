@@ -75,19 +75,22 @@ export interface PluginTailwindCSSOptions {
    *
    * Use a custom `@theme` CSS file:
    *
-   * ```js
-   * // rsbuild.config.ts
-   * import path from 'node:path'
-   * import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
-   *
-   * export default {
-   *   plugins: [
-   *     pluginTailwindCSS({
-   *       theme: path.resolve(__dirname, './config/custom-theme.css'),
-   *     }),
-   *   ],
-   * }
-   * ```
+    * ```js
+    * // rsbuild.config.ts
+    * import path from 'node:path'
+    * import { fileURLToPath } from 'node:url'
+    * import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
+    *
+    * const __dirname = path.dirname(fileURLToPath(import.meta.url))
+    *
+    * export default {
+    *   plugins: [
+    *     pluginTailwindCSS({
+    *       theme: path.resolve(__dirname, './config/custom-theme.css'),
+    *     }),
+    *   ],
+    * }
+    * ```
    *
    * @example
    *
