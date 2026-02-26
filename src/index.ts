@@ -10,8 +10,108 @@ const VIRTUAL_UTILITIES_ID = '/virtual-tailwindcss/utilities.css';
 const VIRTUAL_GLOBAL_ID = '/virtual-tailwindcss/global.css';
 
 export interface PluginTailwindCSSOptions {
+  /**
+   * The path to the Tailwind CSS configuration file.
+   *
+   * @remarks
+   * If a relative path is provided, it is resolved from the rsbuild root
+   * (`api.context.rootPath`). When omitted, the plugin will look for
+   * `tailwind.config.js` in the project root. If the file does not exist,
+   * Tailwind will run with its default configuration.
+   *
+   * @example
+   *
+   * Use a config file in a custom folder:
+   *
+   * ```js
+   * // rsbuild.config.ts
+   * import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
+   *
+   * export default {
+   *   plugins: [
+   *     pluginTailwindCSS({
+   *       config: './config/tailwind.config.js',
+   *     }),
+   *   ],
+   * }
+   * ```
+   *
+   * @example
+   *
+   * Use an absolute config path:
+   *
+   * ```js
+   * // rsbuild.config.ts
+   * import path from 'node:path'
+   * import { fileURLToPath } from 'node:url'
+   * import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
+   *
+   * const __dirname = path.dirname(fileURLToPath(import.meta.url))
+   *
+   * export default {
+   *   plugins: [
+   *     pluginTailwindCSS({
+   *       config: path.resolve(__dirname, './tailwind.config.js'),
+   *     }),
+   *   ],
+   * }
+   * ```
+   */
   config?: string;
 
+  /**
+   * The path to the Tailwind CSS theme entry module.
+   *
+   * @remarks
+   * By default this is resolved via `require.resolve('tailwindcss/theme')`.
+   * Override this option when you want to load the theme layer from a custom
+   * package or a dedicated `@theme` CSS file instead of the default Tailwind
+   * theme.
+   *
+   * The value can be a module id that Node.js can resolve or an absolute file
+   * path.
+   *
+   * @example
+   *
+   * Use a custom `@theme` CSS file:
+   *
+   * ```js
+   * // rsbuild.config.ts
+   * import path from 'node:path'
+   * import { fileURLToPath } from 'node:url'
+   * import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
+   *
+   * const __dirname = path.dirname(fileURLToPath(import.meta.url))
+   *
+   * export default {
+   *   plugins: [
+   *     pluginTailwindCSS({
+   *       theme: path.resolve(__dirname, './config/custom-theme.css'),
+   *     }),
+   *   ],
+   * }
+   * ```
+   *
+   * @example
+   *
+   * Use a shared theme package (ES module config):
+   *
+   * ```js
+   * // rsbuild.config.ts
+   * import { createRequire } from 'node:module'
+   * import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
+   *
+   * const require = createRequire(import.meta.url)
+   *
+   * export default {
+   *   plugins: [
+   *     pluginTailwindCSS({
+   *       theme: require.resolve('@acme/tailwind-theme'),
+   *     }),
+   *   ],
+   * }
+   * ```
+   */
   theme?: string;
 }
 
