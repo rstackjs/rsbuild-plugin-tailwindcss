@@ -31,21 +31,21 @@ test('deduplicates utilities across multiple modules', async ({ page }) => {
   try {
     await page.goto(urls[0]);
 
-    const a = page.locator('#dedup-a');
-    const b = page.locator('#dedup-b');
-    const c = page.locator('#dedup-c');
+    const ids = ['#dedup-a', '#dedup-b', '#dedup-c'] as const;
+    const locators = ids.map((selector) => page.locator(selector));
 
     // All elements share the same utilities and CSS variable-backed color.
-    await expect(a).toHaveCSS('display', 'flex');
-    await expect(b).toHaveCSS('display', 'flex');
-    await expect(c).toHaveCSS('display', 'flex');
+    await Promise.all(
+      locators.map((locator) => expect(locator).toHaveCSS('display', 'flex')),
+    );
 
-    const colorA = await a.evaluate((el) => getComputedStyle(el).color);
-    const colorB = await b.evaluate((el) => getComputedStyle(el).color);
-    const colorC = await c.evaluate((el) => getComputedStyle(el).color);
+    const colors = await Promise.all(
+      locators.map((locator) =>
+        locator.evaluate((el) => getComputedStyle(el).color),
+      ),
+    );
 
-    expect(colorA).toBe(colorB);
-    expect(colorB).toBe(colorC);
+    expect(new Set(colors).size).toBe(1);
 
     // Fetch the built CSS and assert utilities are only emitted once.
     const cssHref = await page
@@ -60,11 +60,11 @@ test('deduplicates utilities across multiple modules', async ({ page }) => {
     );
     const css = await response.text();
 
-    const flexMatches = css.match(/\.flex\s*\{/g) ?? [];
-    const brandMatches = css.match(/\.text-brand-dedup\s*\{/g) ?? [];
-
-    expect(flexMatches.length).toBe(1);
-    expect(brandMatches.length).toBe(1);
+    for (const selector of ['.flex', '.text-brand-dedup']) {
+      const pattern = new RegExp(`${selector}\\s*\\{`, 'g');
+      const matches = css.match(pattern) ?? [];
+      expect(matches.length).toBe(1);
+    }
   } finally {
     await server.close();
   }
