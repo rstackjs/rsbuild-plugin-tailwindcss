@@ -89,25 +89,28 @@ export interface PluginTailwindCSSOptions {
    * }
    * ```
    *
-   * @example
-   *
-   * Use a shared theme package:
-   *
-   * ```js
-   * // rsbuild.config.ts
-   * import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
-   *
-   * export default {
-   *   plugins: [
-   *     pluginTailwindCSS({
-   *       theme: require.resolve('@acme/tailwind-theme'),
-   *     }),
-   *   ],
-   * }
-   * ```
-   */
-  theme?: string;
-}
+    * @example
+    *
+    * Use a shared theme package (ES module config):
+    *
+    * ```js
+    * // rsbuild.config.ts
+    * import { createRequire } from 'node:module'
+    * import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
+    *
+    * const require = createRequire(import.meta.url)
+    *
+    * export default {
+    *   plugins: [
+    *     pluginTailwindCSS({
+    *       theme: require.resolve('@acme/tailwind-theme'),
+    *     }),
+    *   ],
+    * }
+    * ```
+    */
+   theme?: string;
+  }
 
 export const pluginTailwindCSS = (
   options?: PluginTailwindCSSOptions,
