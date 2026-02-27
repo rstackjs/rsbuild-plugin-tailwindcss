@@ -6,7 +6,9 @@ import { pluginTailwindCSS } from '../../src';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-test('can co-exist with CSS modules', async ({ page }) => {
+test('should handle @reference directive correctly in CSS modules', async ({
+  page,
+}) => {
   const rsbuild = await createRsbuild({
     cwd: __dirname,
     rsbuildConfig: {
@@ -19,10 +21,9 @@ test('can co-exist with CSS modules', async ({ page }) => {
 
   await page.goto(urls[0]);
 
-  const locator = page.locator('#button');
-  await expect(locator).toHaveCSS('display', 'flex');
-  await expect(locator).toHaveCSS('color', 'rgb(17, 34, 51)');
-  await expect(locator).toHaveCSS('background-color', 'rgb(170, 187, 204)');
+  const locator = page.locator('#test-div');
+  // Check if the custom color defined in theme.css is applied via @apply in the module
+  await expect(locator).toHaveCSS('background-color', 'rgb(18, 52, 86)'); // #123456
 
   await server.close();
 });

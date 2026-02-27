@@ -1,3 +1,6 @@
+@reference "../theme.css";
+
 .button {
   color: #112233;
+  @apply bg-btn-bg;
 }
