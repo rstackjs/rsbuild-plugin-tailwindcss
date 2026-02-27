@@ -63,11 +63,11 @@ export default {
 
 This will be auto-loaded by Rsbuild and applied by `rsbuild-plugin-tailwindcss`.
 
-### CSS directives (`@apply`, `@plugin`)
+### CSS directives (`@apply`, `@variant`, etc.)
 
 This plugin automatically wires the official `@tailwindcss/postcss`
 plugin into Rsbuild's PostCSS pipeline, so Tailwind CSS
-directives like `@apply` and `@plugin` work out of the box without extra
+directives like `@apply`, `@variant`, `@utility`, and `@custom-variant` work out of the box without extra
 configuration.
 
 ```css
