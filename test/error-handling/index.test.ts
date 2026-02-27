@@ -21,8 +21,7 @@ test('should fail with clear error when config file is missing', async () => {
   // We expect the build to fail
   try {
     await rsbuild.build();
-    // If it doesn't fail, fail the test
-    expect(true).toBe(false);
+    throw new Error('Build was expected to fail, but it succeeded.');
   } catch (err: unknown) {
     const error = err as Error;
     // Check for error message
