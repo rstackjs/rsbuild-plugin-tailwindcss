@@ -24,6 +24,9 @@ importers:
       '@tailwindcss/oxide':
         specifier: ^4.2.1
         version: 4.2.1
+      '@tailwindcss/postcss':
+        specifier: ^4.2.1
+        version: 4.2.1
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -40,12 +43,12 @@ importers:
       '@rslib/core':
         specifier: ^0.19.5
         version: 0.19.5(typescript@5.9.3)
-      '@tailwindcss/postcss':
-        specifier: ^4.2.1
-        version: 4.2.1
       '@types/node':
         specifier: ^22.19.11
         version: 22.19.11
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
       simple-git-hooks:
         specifier: ^2.13.1
         version: 2.13.1

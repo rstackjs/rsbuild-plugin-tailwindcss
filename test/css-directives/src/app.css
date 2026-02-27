@@ -1,0 +1,34 @@
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@custom-variant theme-midnight {
+  &:where([data-theme="midnight"] *) {
+    @slot;
+  }
+}
+
+@utility debug-border {
+  outline-width: 3px;
+  outline-style: solid;
+}
+
+.btn {
+  @apply flex;
+}
+
+.card {
+  background-color: white;
+  width: 120px;
+  height: 60px;
+
+  @variant hover {
+    background-color: black;
+  }
+}
+
+.link {
+  color: red;
+
+  @variant theme-midnight {
+    color: blue;
+  }
+}

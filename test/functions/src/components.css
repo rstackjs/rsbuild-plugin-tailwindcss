@@ -1,0 +1,9 @@
+@layer components {
+  .alpha-text {
+    color: --alpha(var(--color-functions-alpha) / 50%);
+  }
+
+  .spacing-box {
+    margin-top: --spacing(4);
+  }
+}
