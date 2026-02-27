@@ -1,0 +1,5 @@
+@reference "./theme.css";
+
+.myButton {
+  @apply bg-custom-brand;
+}
