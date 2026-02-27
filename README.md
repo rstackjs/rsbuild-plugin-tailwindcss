@@ -63,6 +63,22 @@ export default {
 
 This will be auto-loaded by Rsbuild and applied by `rsbuild-plugin-tailwindcss`.
 
+### CSS directives (`@apply`, `@variant`, etc.)
+
+This plugin automatically wires the official `@tailwindcss/postcss`
+plugin into Rsbuild's PostCSS pipeline, so Tailwind CSS
+directives like `@apply`, `@variant`, `@utility`, and `@custom-variant` work out of the box without extra
+configuration.
+
+```css
+/* src/styles.css */
+@import "tailwindcss/utilities" layer(utilities);
+
+.btn {
+  @apply px-4 py-2 rounded bg-blue text-white;
+}
+```
+
 ### Custom theme with `@theme`
 
 Tailwind CSS v4 also lets you define design tokens using the `@theme` directive in a CSS file.

@@ -1,3 +1,5 @@
+import './components.css';
+
 const root = document.getElementById('root');
 
 const alphaElement = document.createElement('div');

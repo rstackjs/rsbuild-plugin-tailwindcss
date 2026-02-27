@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 import type { RsbuildPlugin } from '@rsbuild/core';
 import { cleanupCache } from './compiler.js';
 import type { TailwindCSSLoaderOptions } from './loader.js';
+import { tailwindPostCSSPlugins } from './postcss.js';
 
 const VIRTUAL_UTILITIES_ID = '/virtual-tailwindcss/utilities.css';
 const VIRTUAL_GLOBAL_ID = '/virtual-tailwindcss/global.css';
@@ -123,7 +124,10 @@ export const pluginTailwindCSS = (
   setup(api) {
     const require = createRequire(import.meta.url);
     const config = options?.config ?? 'tailwind.config.js';
-    const theme = options?.theme ?? require.resolve('tailwindcss/theme');
+    let theme = options?.theme ?? require.resolve('tailwindcss/theme');
+    if (!path.isAbsolute(theme)) {
+      theme = path.resolve(api.context.rootPath, theme);
+    }
     const preflight = require.resolve('tailwindcss/preflight');
     const utilities = require.resolve('tailwindcss/utilities');
 
@@ -141,6 +145,11 @@ export const pluginTailwindCSS = (
         {
           source: {
             preEntry: [pathToFileURL(VIRTUAL_GLOBAL_ID).toString()],
+          },
+          tools: {
+            postcss(_, { addPlugins }) {
+              addPlugins(tailwindPostCSSPlugins({ theme }), { order: 'pre' });
+            },
           },
         },
         config,
