@@ -1,4 +1,5 @@
-import { dirname } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 import { createRsbuild } from '@rsbuild/core';
@@ -29,11 +30,8 @@ test('should not interfere with static asset queries (?url, ?raw)', async ({
 
   // Check ?raw
   // It should contain the original CSS content, NOT Tailwind's injected content (like @tailwind base etc.)
-  expect(cssRaw).toContain('.foo {');
-  expect(cssRaw).toContain('color: red;');
-
-  // Ensure it's not empty or undefined
-  expect(cssRaw).toBeTruthy();
+  const originalCss = readFileSync(resolve(__dirname, 'src/index.css'), 'utf-8');
+  expect(cssRaw.trim()).toBe(originalCss.trim());
 
   await server.close();
 });
