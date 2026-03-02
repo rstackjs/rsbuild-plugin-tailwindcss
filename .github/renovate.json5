@@ -5,6 +5,7 @@
 		'schedule:monthly',
 		'group:allNonMajor',
 	],
+	baseBranchPatterns: ['main', 'v4'],
 	rangeStrategy: 'bump',
 	packageRules: [
 		{
