@@ -1,4 +1,3 @@
-
 import './index.css';
 
 const el = document.createElement('div');

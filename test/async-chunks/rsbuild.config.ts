@@ -1,4 +1,3 @@
-
 import { pluginTailwindCSS } from '../../src';
 
 export default {
