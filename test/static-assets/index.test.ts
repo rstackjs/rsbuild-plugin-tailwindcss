@@ -30,7 +30,10 @@ test('should not interfere with static asset queries (?url, ?raw)', async ({
 
   // Check ?raw
   // It should contain the original CSS content, NOT Tailwind's injected content (like @tailwind base etc.)
-  const originalCss = readFileSync(resolve(__dirname, 'src/index.css'), 'utf-8');
+  const originalCss = readFileSync(
+    resolve(__dirname, 'src/index.css'),
+    'utf-8',
+  );
   expect(cssRaw.trim()).toBe(originalCss.trim());
 
   await server.close();
