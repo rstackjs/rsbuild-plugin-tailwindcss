@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@reference "./theme.css";
+
+.dynamic-bg {
+  @apply bg-dynamic;
+}
