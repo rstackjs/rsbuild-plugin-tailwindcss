@@ -171,7 +171,7 @@ export const pluginTailwindCSS = (
     // 1. Inject
     api.transform(
       {
-        test: { and: [/\.(jsx?|tsx?)$/, { not: [/node_modules/] }] },
+        test: { and: [/\.(jsx?|tsx?|vue)$/, { not: [/node_modules/] }] },
       },
       ({ code, resourcePath }) => {
         const params = new URLSearchParams({
