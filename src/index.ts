@@ -171,16 +171,25 @@ export const pluginTailwindCSS = (
     // 1. Inject
     api.transform(
       {
-        test: { and: [/\.(jsx?|tsx?)$/, { not: [/node_modules/] }] },
+        test: { and: [/\.(jsx?|tsx?|svelte)$/, { not: [/node_modules/] }] },
       },
       ({ code, resourcePath }) => {
         const params = new URLSearchParams({
           path: resourcePath,
         });
 
-        return `\
-import "${pathToFileURL(VIRTUAL_UTILITIES_ID)}?${params.toString()}";
-${code}`;
+        const importStr = `import "${pathToFileURL(VIRTUAL_UTILITIES_ID)}?${params.toString()}";\n`;
+
+        if (resourcePath.endsWith('.svelte')) {
+          const scriptMatch = code.match(/<script[^>]*>/);
+          if (scriptMatch && scriptMatch.index !== undefined) {
+            const index = scriptMatch.index + scriptMatch[0].length;
+            return `${code.slice(0, index)}\n${importStr}${code.slice(index)}`;
+          }
+          return `<script>\n${importStr}</script>\n${code}`;
+        }
+
+        return importStr + code;
       },
     );
 
