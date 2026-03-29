@@ -188,7 +188,14 @@ ${code}`;
     api.modifyBundlerChain((chain) => {
       chain.module
         .rule('tailwindcss')
-        .resource(new RegExp(VIRTUAL_UTILITIES_ID.replace(/\//g, '[\\\\/]')))
+        .resource(
+          new RegExp(
+            VIRTUAL_UTILITIES_ID.replace(/\//g, '[\\\\/]').replace(
+              /\./g,
+              '\\.',
+            ),
+          ),
+        )
         .use('tailwindcss')
         .loader(require.resolve('./loader'))
         .options({
