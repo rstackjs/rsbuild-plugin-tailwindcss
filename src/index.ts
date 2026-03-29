@@ -178,9 +178,21 @@ export const pluginTailwindCSS = (
           path: resourcePath,
         });
 
-        return `\
-import "${pathToFileURL(VIRTUAL_UTILITIES_ID)}?${params.toString()}";
-${code}`;
+        const importStr = `import "${pathToFileURL(VIRTUAL_UTILITIES_ID)}?${params.toString()}";\n`;
+
+        const match = code.match(
+          /^(?:[\s]*|(?:\/\*[\s\S]*?\*\/)|(?:\/\/[^\n]*\n))*(?:(?:"[^"]*"|'[^']*')[ \t]*;?[\s]*)+/,
+        );
+
+        if (match) {
+          return (
+            code.slice(0, match[0].length) +
+            importStr +
+            code.slice(match[0].length)
+          );
+        }
+
+        return importStr + code;
       },
     );
 
