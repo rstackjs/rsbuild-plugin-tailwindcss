@@ -181,9 +181,19 @@ export const pluginTailwindCSS = (
         const importStr = `import "${pathToFileURL(VIRTUAL_UTILITIES_ID)}?${params.toString()}";\n`;
 
         if (resourcePath.endsWith('.svelte')) {
-          const scriptMatch = code.match(/<script[^>]*>/);
-          if (scriptMatch && scriptMatch.index !== undefined) {
-            const index = scriptMatch.index + scriptMatch[0].length;
+          // Find the first <script> tag that is NOT inside a <svelte:head> or <svelte:options> tag etc.
+          // By looking for `<script>` or `<script lang="ts">` at the start of a line or following generic HTML
+          // Alternatively, simply look for the top-level <script> tag by avoiding those prefixed with <svelte:
+          const scriptMatches = Array.from(code.matchAll(/<script[^>]*>/g));
+          const topLevelScript = scriptMatches.find(
+            (match) => {
+              const textBefore = code.slice(0, match.index);
+              return !textBefore.match(/<svelte:head>[\s\S]*$/);
+            }
+          );
+          
+          if (topLevelScript && topLevelScript.index !== undefined) {
+            const index = topLevelScript.index + topLevelScript[0].length;
             return `${code.slice(0, index)}\n${importStr}${code.slice(index)}`;
           }
           return `<script>\n${importStr}</script>\n${code}`;
