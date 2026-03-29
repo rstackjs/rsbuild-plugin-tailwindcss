@@ -17,9 +17,16 @@ const injectTailwindThemePlugin: PluginCreator<TailwindCSSPostCSSOptions> = (
       if (!themePath) {
         return;
       }
+
+      const file = root.source?.input.file || '';
+
+      // Use @reference for CSS modules to avoid duplicating theme variables in every module.
+      // Use @import for global CSS and regular CSS files to ensure theme variables are emitted.
+      const isCssModule = /\.module\.(css|scss|sass|less|styl)$/i.test(file);
+
       root.prepend(
         new AtRule({
-          name: 'reference',
+          name: isCssModule ? 'reference' : 'import',
           params: JSON.stringify(themePath),
         }),
       );
