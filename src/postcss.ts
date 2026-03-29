@@ -19,7 +19,7 @@ const injectTailwindThemePlugin: PluginCreator<TailwindCSSPostCSSOptions> = (
       }
       root.prepend(
         new AtRule({
-          name: 'import',
+          name: 'reference',
           params: JSON.stringify(themePath),
         }),
       );
