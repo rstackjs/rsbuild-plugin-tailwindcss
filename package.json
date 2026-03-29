@@ -40,13 +40,15 @@
     "@biomejs/biome": "^1.9.4",
     "@playwright/test": "^1.58.2",
     "@rsbuild/core": "2.0.0-beta.4",
+    "@rsbuild/plugin-vue": "^1.2.7",
     "@rsdoctor/rspack-plugin": "^1.5.2",
     "@rslib/core": "^0.19.5",
     "@types/node": "^22.19.11",
     "postcss": "^8.5.6",
     "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4.2.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vue": "^3.5.31"
   },
   "peerDependencies": {
     "@rsbuild/core": "^1.1.0 || ^2.0.0-0",

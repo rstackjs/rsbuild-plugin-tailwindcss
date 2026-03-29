@@ -171,9 +171,19 @@ export const pluginTailwindCSS = (
     // 1. Inject
     api.transform(
       {
-        test: { and: [/\.(jsx?|tsx?)$/, { not: [/node_modules/] }] },
+        test: {
+          and: [
+            /\.(jsx?|tsx?|vue)$/,
+            { not: [/node_modules/] },
+          ],
+        },
       },
-      ({ code, resourcePath }) => {
+      ({ code, resourcePath, resourceQuery }) => {
+        // Exclude Vue subresource requests
+        if (resourcePath.endsWith('.vue') && resourceQuery) {
+          return code;
+        }
+
         const params = new URLSearchParams({
           path: resourcePath,
         });
