@@ -181,7 +181,7 @@ export const pluginTailwindCSS = (
         const importStr = `import "${pathToFileURL(VIRTUAL_UTILITIES_ID)}?${params.toString()}";\n`;
 
         const match = code.match(
-          /^(?:[\s]*|(?:\/\*[\s\S]*?\*\/)|(?:\/\/[^\n]*\n?))*(?:(?:(?:"[^"]*"|'[^']*')[ \t]*;?)(?:[ \t]*\/\/[^\n]*\n?|[ \t]*\/\*[\s\S]*?\*\/|[\s]*))+/,
+          /^(?:[\s]*|(?:\/\*[\s\S]*?\*\/)|(?:\/\/[^\n]*(?:\n|$)))*(?:(?:(?:"[^"\n\r]*"|'[^'\n\r]*')[ \t]*;?)(?:[\s]*|(?:\/\*[\s\S]*?\*\/)|(?:\/\/[^\n]*(?:\n|$)))*)+/,
         );
 
         if (match) {
