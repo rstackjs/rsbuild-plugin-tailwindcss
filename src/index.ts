@@ -199,6 +199,10 @@ ${code}`;
     });
 
     api.onAfterBuild(() => {
+      if (api.context.action === 'dev') {
+        return;
+      }
+
       cleanupCache({
         config: finalConfigPath,
         theme,
