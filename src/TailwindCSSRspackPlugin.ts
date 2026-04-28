@@ -394,9 +394,8 @@ class TailwindRspackPluginImpl {
   ): Promise<['tailwind.config.mjs' | 'tailwind.config.cjs', string]> {
     const version = await this.#resolveTailwindCSSVersion(tailwindcssPath);
 
-    const { default: satisfies } = await import(
-      'semver/functions/satisfies.js'
-    );
+    const { default: satisfies } =
+      await import('semver/functions/satisfies.js');
 
     const content = JSON.stringify(entryModules);
     if (satisfies(version, '^3.3.0')) {
