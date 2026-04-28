@@ -31,7 +31,7 @@ Add plugin to your `rsbuild.config.ts`:
 
 ```ts
 // rsbuild.config.ts
-import { pluginTailwindCSS } from "rsbuild-plugin-tailwindcss";
+import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss';
 
 export default {
   plugins: [pluginTailwindCSS()],
@@ -47,15 +47,15 @@ Create a `tailwind.config.js` file at the root of the project:
 export default {
   theme: {
     colors: {
-      blue: "#1fb6ff",
-      purple: "#7e5bef",
-      pink: "#ff49db",
-      orange: "#ff7849",
-      green: "#13ce66",
-      yellow: "#ffc82c",
-      "gray-dark": "#273444",
-      gray: "#8492a6",
-      "gray-light": "#d3dce6",
+      blue: '#1fb6ff',
+      purple: '#7e5bef',
+      pink: '#ff49db',
+      orange: '#ff7849',
+      green: '#13ce66',
+      yellow: '#ffc82c',
+      'gray-dark': '#273444',
+      gray: '#8492a6',
+      'gray-light': '#d3dce6',
     },
   },
 };
@@ -74,7 +74,7 @@ Create a `postcss.config.js` file at the root of the project:
 ```js
 export default {
   plugins: {
-    cssnano: process.env["NODE_ENV"] === "production" ? {} : false,
+    cssnano: process.env['NODE_ENV'] === 'production' ? {} : false,
   },
 };
 ```
@@ -98,12 +98,12 @@ The path to custom Tailwind CSS configuration. Could be a relative path from the
 
 ```js
 // rsbuild.config.ts
-import { pluginTailwindCSS } from "rsbuild-plugin-tailwindcss";
+import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss';
 
 export default {
   plugins: [
     pluginTailwindCSS({
-      config: "./config/tailwind.config.js",
+      config: './config/tailwind.config.js',
     }),
   ],
 };
@@ -125,13 +125,13 @@ Include all `.js`, `.jsx`, `.ts`, `.tsx` files but exclude files in `./src/store
 
 ```js
 // rsbuild.config.ts
-import { pluginTailwindCSS } from "@byted-lynx/plugin-tailwindcss";
+import { pluginTailwindCSS } from '@byted-lynx/plugin-tailwindcss';
 
 export default {
   plugins: [
     pluginTailwindCSS({
       include: /\.[jt]sx?/,
-      exclude: ["./src/store/**", /[\\/]node_modules[\\/]/],
+      exclude: ['./src/store/**', /[\\/]node_modules[\\/]/],
     }),
   ],
 };
@@ -143,7 +143,7 @@ Note that `picomatch` patterns are very similar to [`minimatch`](https://github.
 
 Specifies the absolute path to the tailwindcss package.
 
-By default, tailwindcss is resolved using Node.js module resolution algorithm starting from the root path. 
+By default, tailwindcss is resolved using Node.js module resolution algorithm starting from the root path.
 
 This option allows explicit specification of the tailwindcss package location for scenarios where automatic resolution fails or the resolved path is not correct, such as in monorepo.
 
@@ -152,7 +152,7 @@ This option allows explicit specification of the tailwindcss package location fo
 
 ```js
 // rsbuild.config.ts
-import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
+import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss';
 
 export default {
   plugins: [
