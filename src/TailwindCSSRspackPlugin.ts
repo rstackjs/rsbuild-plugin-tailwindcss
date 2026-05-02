@@ -7,7 +7,7 @@ import { pathToFileURL } from 'node:url';
 
 import { createFilter } from '@rollup/pluginutils';
 import type { PostCSSLoaderOptions, Rspack } from '@rsbuild/core';
-import type { Processor } from 'postcss';
+import type { ProcessOptions, Processor } from 'postcss';
 
 import { isSubsetOf } from './Set.prototype.isSubsetOf.js';
 
@@ -321,7 +321,9 @@ class TailwindRspackPluginImpl {
         // FIXME: add custom postcss config
         const transformResult = await postcssProcessor.process(content, {
           from: asset.name,
-          ...this.options.postcssOptions,
+          ...(this.options.postcssOptions as unknown as
+            | ProcessOptions
+            | undefined),
         });
         // FIXME: avoid `updateAsset` when no change is found.
         // FIXME: add sourcemap support
